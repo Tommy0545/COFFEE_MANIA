@@ -1,0 +1,114 @@
+.main-title{
+   color: white;
+   font-family: Comic Sans MS;
+ }
+
+ .nav-item{
+   font-family: Comic Sans MS;
+ }
+
+.background-image{
+  background-image: url('COFFEE0I9A8933.jpg');
+  background-size: cover;
+  min-height: 100vh;
+  background-position: center center;
+}
+
+.body{
+  background: rgba(255,255,255,0.8);
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.footer{
+  position: sticky;
+  width: 100%;
+  padding-bottom: 20px;
+  background-color: #663300;
+}
+
+.footer-text{
+  font-family: Comic Sans MS;
+  text-align: center;
+  color: white;
+}
+
+nav{
+  background-color:#663300;
+}
+
+.about{
+  font-family: Comic Sans MS;
+}
+
+.btn{
+  background-color: #663300;
+  color: white;
+}
+
+.p{
+  margin-top: 5;
+  text-align: center;
+  padding-top: 50px;
+  letter-spacing: 3px;
+}
+
+.unsubscribe{
+  text-align: center;
+  padding-top: 100px;
+  letter-spacing: 3px;
+}
+
+.unsubscribe-btn{
+  padding-top: 50px;
+}
+
+.post{
+  font-family: Comic Sans MS;
+
+}
+
+.cafe-post-list{
+  font-family: Comic Sans MS;
+}
+
+.bean-post-list{
+  font-family: Comic Sans MS;
+}
+
+.cafe-table{
+  font-family: Comic Sans MS;
+}
+
+.bean-table{
+  font-family: Comic Sans MS;
+}
+
+.cafe-detail{
+  font-family: Comic Sans MS;
+  
+}
+
+.bean-detail{
+  font-family: Comic Sans MS;
+}
+
+.cafe-edit{
+  font-family: Comic Sans MS;
+}
+
+.bean-edit{
+  font-family: Comic Sans MS;
+}
+
+.userpage{
+  font-family: Comic Sans MS;
+}
+
+.follow{
+  font-family: Comic Sans MS;
+}
+
+.text-small{
+  margin: 2;
+}

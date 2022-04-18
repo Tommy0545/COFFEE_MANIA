@@ -1,0 +1,122 @@
+<div class="container px-5 px-sm-0">
+  <h1 class="bean-detail  row">
+    <b>
+      Beans Detail
+    </b>
+  </h1>
+
+   <div class="bean-detail row px-5 px-sm-0">
+    <div class="col-2"><% if @bean.user != current_user %>
+      <b><%= link_to @bean.user.user_name,user_path(@bean.user_id) %></b>'s Post
+     <% else %>
+      <b>Your Post</b>
+     <% end %>
+    </div>
+    <div class="col-5">
+      Posted date:<%= @bean.created_at.strftime('%Y/%m/%d') %>
+    </div>
+   </div>
+  <div class="row mb-3">
+   <div class="col-md-5">
+    <div class="image">
+      <label for="image"></label><br>
+        <%= image_tag @bean.get_image,size: '400x300' %>
+    </div>
+   </div>
+
+    <table class="col-md-6">
+     <tr class="form-group">
+        <td class="bean-detail">Beans Name</td>
+        <td><b><%= @bean.beans_name %></b></td>
+     </tr>
+     <tr class="form-group">
+        <td class="bean-detail">Roast Lebel</td>
+        <td><b><%= @bean.loast_lebel_i18n %></b></td>
+     </tr>
+     <tr class="form-group">
+        <td class="bean-detail">Origin</td>
+        <td><b><%= @bean.origin %></b></td>
+     </tr>
+     <tr class="form-group">
+        <td class="bean-detail">Process</td>
+        <td><b><%= @bean.process %></b></td>
+     </tr>
+     <tr class="form-group">
+        <td class="bean-detail">Feedback</td>
+        <td><b><%= @bean.feedback %></b></td>
+     </tr>
+     <tr class="form-group">
+        <td class="bean-detail">Purchase</td>
+        <td><b><%= link_to @bean.purchase , @bean.purchase %></b></td>
+      </tr>
+    </table>
+  </div>
+  <div class=" bean-detail row">
+    <% if @bean.favorited_by?(current_user) %>
+    <p>
+      <%= link_to bean_bean_favorites_path(@bean), method: :delete do %>
+        ♥<%= @bean.bean_favorites.count %>
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to bean_bean_favorites_path(@bean), method: :post do %>
+        ♡<%= @bean.bean_favorites.count %>
+      <% end %>
+    </p>
+    <% end %>
+  </div>
+  <div class="bean-detail row mt-3">
+    <% if @bean.user == current_user %>
+        <%= link_to "EDIT", edit_bean_path(@bean.id), class: "btn btn-info mr-2" %>
+        <%= link_to "DELETE", destroy_bean_path(@bean.id), method: :delete,"data-confirm" => "本当に削除しますか？", class: "btn btn-danger mr-2" %>
+    <% end %>
+    <%= link_to "BACK", beans_path, class: "btn btn-success" %>
+  </div>
+
+  <div class="bean-detail row mt-4">
+    <b>Comment Number：<%= @bean.bean_comments.count %></b>
+  </div>
+   <% if @error_comment.present? %>
+    <div id="error_explanation">
+      <h4><%= @error_comment.errors.count %>件のエラーが発生しました。</h4>
+      <ul>
+        <% @error_comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+   <% end %>
+  <div class="bean-detail row pb-2">
+    <div class="col-3">
+        <% if @bean.user != current_user %>
+           <%= form_with model: [@bean , @bean_comment] do |f| %>
+            <%= f.text_area :comment,size: "20x5", placeholder: "Comment here" %>
+            <%= f.submit "SEND",class: 'btn btn-secondary' %>
+           <% end %>
+        <% end %>
+    </div>
+    <table class="table col-9">
+       <% @bean.bean_comments.each do |bean_comment| %>
+       <tr>
+        <td>
+          <%= image_tag bean_comment.user.get_profile_image(75,75) %>
+        </td>
+        <td class="pt-4">
+          <%= link_to bean_comment.user.user_name,user_path(bean_comment.user_id) %>
+        </td>
+        <td class="pt-4">
+          <%= bean_comment.created_at.strftime('%Y/%m/%d') %>
+        </td>
+        <td class="pt-4">
+          <%= bean_comment.comment %>
+        </td>
+        <td>
+         <% if bean_comment.user == current_user %>
+          <%= link_to "DELETE", bean_bean_comment_path(bean_comment.bean, bean_comment), method: :delete, class: 'btn btn-danger' %>
+         <% end %>
+        </td>
+        <% end %>
+       </tr>
+    </table>
+  </div>

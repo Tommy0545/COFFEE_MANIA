@@ -1,0 +1,108 @@
+<%= notice %>
+<div class="container">
+  <h1 class="userpage">
+    <% if @user == current_user %>
+    <i class="fa-solid fa-user"></i>
+    <b>My Page</b>
+    <% else %>
+    <b><%= @user.user_name %></b>'s Page
+    <% end %>
+  </h1>
+  <br>
+  <div class="follow mb-3">
+    <p class="text-small"><%= link_to @user.followings.count, followings_user_path(@user) %>Follow<%= link_to @user.followers.count, followers_user_path(@user) %>Follower</p>
+    <% if @user != current_user %>
+      <% if @user.is_followed_by?(current_user) %>
+       <%= link_to user_relationships_path(@user), method: :delete do %>
+         <button class="btn btn-danger">Unfollow</button>
+        <% end %>
+      <% else %>
+        <%= link_to user_relationships_path(@user), method: :post do %>
+         <button class="btn btn-primary">Follow</button>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+
+  <div class="row">
+    <div class="col-3">
+      <tr>
+        <%= image_tag @user.get_profile_image(300,300) %>
+      </tr>
+    </div>
+    <table class="col-7 ml-5">
+      <tr>
+        <td><i class="fa-solid fa-user"></i></td>
+        <td><b><%= @user.user_name %></b></td>
+      </tr>
+      <tr>
+        <% if @user == current_user %>
+          <td><i class="fa-solid fa-envelope"></i></td>
+          <td><b><%= @user.email %></b></td>
+        <% end %>
+      </tr>
+      <tr>
+        <td><i class="fa-solid fa-circle-info"></i></td>
+        <td><b><%= @user.introduction %></b></td>
+      </tr>
+      <tr>
+        <td><i class="fa-solid fa-mug-saucer"></i></td>
+        <td><b><%= @user.favorite_bean %></b></td>
+      </tr>
+    </table>
+  </div>
+  <div class="userpage row mt-3">
+    <% if @user == current_user %>
+      <%= link_to "EDIT", edit_user_path(current_user) , class: 'mr-3 btn btn-info' %>
+      <%= link_to "UNSUBSCRIBE",unsubscribe_user_path,class: 'btn btn-danger' %>
+    <% end %>
+  </div>
+  <br>
+  <div class="row">
+   <div class="col-md-6">
+    <label class="post" for="cafe">
+      <b><%= link_to "Cafe Post",new_cafe_path,class:'btn btn-dark' %></b>
+    </label>
+    <table class="table">
+      <thead class="cafe-table">
+          <tr>
+            <th>Store Name</th>
+            <th>Location</th>
+          </tr>
+      </thead>
+      <tbody>
+        <% @cafes.each do |cafe| %>
+          <tr>
+            <td><%= link_to cafe.store_name,cafe_path(cafe.id) %></td>
+            <td><%= cafe.location %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+   </div>
+   <div class="col-md-6">
+    <label class="post" for="beans">
+      <b><%= link_to "Beans Post",new_bean_path,class:'btn btn-dark' %></b>
+    </label>
+    <table class="table">
+      <thead class="bean-table">
+          <tr>
+            <th>Beans Name</th>
+            <th>Origin</th>
+            <th>Process</th>
+          </tr>
+      </thead>
+      <tbody>
+        <% @beans.each do |bean| %>
+          <tr>
+            <td><%= link_to bean.beans_name,bean_path(bean.id) %></td>
+            <td><%= bean.origin  %></td>
+            <td><%= bean.process %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+   </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<html>
+ <div class="container">
+  <h7><%= flash[:notice] %></h7>
+  <div class="about">
+   <h1>Welcome to COFFEEMANIA！！</h1><br><br>
+   <h6>
+    This site can be viewed by anyone on the TOP page and ABOUT page, but to use the main functions of this site such as posting and viewing posts by other users,
+    Account registration is required.<br>
+    <br>
+    Please register from the Sign Up button on the upper right.
+   </h6>
+  </div>
+  <br>
+  <div class="row">
+   <div class="col-md-6 mt-5">
+    <h3 class="post"><%= link_to "Cafe Post",new_cafe_path,class: 'btn btn-secondary' %></h3>
+    <table class="table" >
+     <thead class="cafe-table">
+     <tr>
+      <th>User</th>
+      <th>Store Name</th>
+      <th>Location</th>
+      <th>Comment</th>
+      <th>♡</th>
+     </tr>
+    </thead>
+    <tbody>
+    <% @cafes.each do |cafe| %>
+      <tr>
+        <td><%= link_to cafe.user.user_name, user_path(cafe.user_id),class: '' %></td>
+        <td><%= link_to cafe.store_name,cafe_path(cafe.id) %></td>
+        <td><%= cafe.location %></td>
+        <td><%= link_to "#{cafe.cafe_comments.count} Comment", cafe_path(cafe.id) %></td>
+        <td><%= cafe.cafe_favorites.count %></td>
+      </tr>
+    <% end %>
+    </tbody>
+
+   </table>
+  </div>
+
+  <div class="col-md-6 mt-5">
+   <h3 class="post"><%= link_to "Bean Post",new_bean_path, class: 'btn btn-secondary' %></h3>
+    <table class="table" >
+     <thead class="bean-table">
+      <tr>
+       <th>User</th>
+       <th>Beans Name</th>
+       <th>Origin</th>
+       <th>Comment</th>
+       <th>♡</th>
+      </tr>
+     </thead>
+     <tbody>
+     <% @beans.each do |bean| %>
+      <tr>
+        <td><%= link_to bean.user.user_name, user_path(bean.user_id) %></td>
+        <td><%= link_to bean.beans_name,bean_path(bean.id) %></td>
+        <td><%= bean.origin %></td>
+        <td><%= link_to "#{bean.bean_comments.count} Comment", bean_path(bean.id) %></td>
+        <td><%= bean.bean_favorites.count %></td>
+      </tr>
+     <% end %>
+     </tbody>
+
+    </table>
+   </div>
+  </div>
+ </div>
+</html>
